@@ -1,0 +1,34 @@
+{
+  "name": "w3css-v3",
+  "homepage": "https://github.com/betofloresbaca/w3css-v3",
+  "authors": [
+    "Luis Alberto Flores Baca <betofloresbaca@gmail.com>"
+  ],
+  "description": "W3 CSS library V3.",
+  "main": "",
+  "keywords": [
+    "w3",
+    "css",
+    "w3css",
+    "style"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "version": "3.0.4",
+  "_release": "3.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v3.0.4",
+    "commit": "bc91609c863ab355f5fe684765de0302a3d00765"
+  },
+  "_source": "https://github.com/betofloresbaca/w3css-v3.git",
+  "_target": "^3.0.4",
+  "_originalSource": "w3css-v3",
+  "_direct": true
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ankietki",
+  "authors": [
+    "Kamil Samiec <kamilsamiec@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.6.10",
+    "w3css-v3": "^3.0.4",
+    "jquery": "^3.3.1",
+    "w3css-themes": "^1.0.0"
+  }
+}
