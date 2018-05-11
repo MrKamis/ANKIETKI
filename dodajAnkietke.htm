@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dodawanie ankietki</title>
+    <link href="bower_components/w3css-v3/w3.css" rel="stylesheet">
+    <link href="bower_components/w3css-themes/w3-theme-blue.css" rel="stylesheet">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-app="my-addAnkietki" class="w3-theme-d4">
+    <div class="w3-row">
+        <div class="w3-col l2 s0 m1" style="opacity: 0;">
+            AD
+        </div>
+        <div class="w3-col l8 s12 m10 w3-padding w3-center" ng-controller="main">
+            <div ng-show="notification.turn" class="{{notification.color}} w3-round-large" ng-click="notification.close()">
+                <h3 ng-bind="notification.title"></h3>
+                <br>
+            </div>
+
+            <h3>DODAWANIE ANKIETY: </h3>
+            <label>Tytuł ankiety: <input type="text" ng-model="titleOfAnkieta" class="w3-input {{titleOfAnkietaStyle}}"></label>
+            <br>
+            <input ng-repeat="option in options" class="w3-input w3-round-large {{option.style}}"  placeholder="{{option.placeholder}}" ng-model="option.title" ng-readonly="block">
+
+            <button class="w3-button w3-green w3-large w3-hover-shadow" ng-click="addOption()">Dodaj opcje: </button>
+
+            <br>
+            <div class="w3-bar" style="width: 100%;">
+                <button class="w3-green w3-right w3-button" ng-click="sendAnkiet()" ng-hide="block">Opublikuj</button>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

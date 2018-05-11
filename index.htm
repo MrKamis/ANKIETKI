@@ -9,6 +9,7 @@
     <link href="bower_components/w3css-themes/w3-theme-blue.css" rel="stylesheet">
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body ng-app="my-ankietki" class="w3-theme-d4">
@@ -16,22 +17,22 @@
         <div class="w3-col l2 s0 m1" style="opacity: 0;">
             AD
         </div>
-        <div class="w3-col l8 s12 m10 w3-padding w3-center">
+        <div class="w3-col l8 s12 m10 w3-padding w3-center" ng-controller="switcher">
 
             <h1>ANKIETKI by mrkamis</h1>
 
-            <button class="w3-button w3-green w3-padding-large w3-xlarge w3-round w3-hover-shadow" style="width: 100%;">
+            <button class="w3-button w3-green w3-padding-large w3-xlarge w3-round w3-hover-shadow" style="width: 100%;" ng-click="switchPage('add')">
                 Dodaj ankiete!
             </button>
             <h2>lub</h2>
-            <button class="w3-button w3-yellow w3-padding-large w3-xlarge w3-round w3-hover-shadow" style="width: 100%;">
+            <button class="w3-button w3-yellow w3-padding-large w3-xlarge w3-round w3-hover-shadow" style="width: 100%;" ng-click="switchPage('join')">
                 Dołącz do istniejącej!
             </button>
 
             <hr>
             <h2>Plusy używania ANKIETEK by mrkamis</h2>
             <div class="w3-row">
-                <div class="w3-col w3-card s12 m6 l6 w3-blue w3-round-large">
+                <div class="w3-col w3-card s12 m6 l6 w3-blue w3-round-large w3-hoverable">
                     <header>
                         <h3>DARMOWE</h3>
                     </header>
