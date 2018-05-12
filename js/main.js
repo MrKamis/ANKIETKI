@@ -103,3 +103,39 @@ let appADD = angular.module('my-addAnkietki', [])
             };
         };
     }]);
+
+let appJOIN = angular.module('my-joinAnkiet', [])
+    .controller('main', ['$scope', '$http', ($scope, $http) => {
+        $scope.ankiety = [];
+        $scope.joined = false;
+        $scope.colors = ['red', 'green', 'yellow', 'blue', 'black', 'white', 'gray', 'indigo', 'khaki'];
+        $scope.start = () => {
+            $http({
+                method: 'GET',
+                url: 'php/getAll.php',
+            })
+                .then(response => {
+                    //console.log(response.data);
+                    angular.forEach(response.data, value => {
+                        $scope.ankiety.push(value);
+                    });
+                });
+        };
+        $scope.start();
+        $scope.joinAnkiet = id => {
+            $scope.joined = true;
+            for(let x = 0; x < $scope.ankiety.length; x++){
+                if($scope.ankiety[x].id == id){
+
+                    $scope.currentAnkiet = $scope.ankiety[x];
+                    break;
+                }
+            }
+        };  
+        $scope.vote = title => {
+            
+        };
+        $scope.back = () => {
+            $scope.joined = false;
+        };
+    }]);

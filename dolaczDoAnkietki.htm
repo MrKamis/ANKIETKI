@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dołącz do istniejącej ankiety!</title>
+    <link href="bower_components/w3css-v3/w3.css" rel="stylesheet">
+    <link href="bower_components/w3css-themes/w3-theme-blue.css" rel="stylesheet">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-app="my-joinAnkiet" class="w3-theme-d4">
+    <div class="w3-row">
+        <div class="w3-col l2 s0 m1" style="opacity: 0;">
+            AD
+        </div>
+        <div ng-controller="main" ng-switch="joined">
+            <ul class="w3-ul w3-hoverable w3-bordered" ng-switch-when="false">
+                <h2 class="w3-center">
+                    ANKIETKI
+                </h2>
+                <hr>
+                <li ng-repeat="ankieta in ankiety track by $index" style="cursor: pointer;" ng-click="joinAnkiet(ankieta.id)">
+                    <h3 ng-bind="ankieta.title" class="w3-left"></h3>
+                    <h3 class="w3-right w3-opacity">Kliknij, by dołączyć!</h3>
+                    <div class="w3-row">
+                        <div ng-repeat="option in ankieta.options track by $index" class="w3-left">
+                            <sub ng-bind="option.title" class="w3-round w3-green w3-padding-small"></sub>&nbsp;
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div ng-switch-when="true" class="w3-padding-large w3-shadow">
+                <div class="w3-right w3-button w3-padding w3-round" ng-click="back()">
+                    Powrót!
+                </div>
+                <h3 ng-bind="currentAnkiet.title" class="w3-center w3-xxlarge"></h3>
+                <hr>
+
+                <ul class="w3-ul w3-hoverable">
+                    <li ng-repeat="option in currentAnkiet.options" class="w3-row w3-round-large" style="cursor: pointer;" ng-click="vote(option.title)">
+                        <h3 ng-bind="option.title" class="w3-left"></h3>
+                        <span class="w3-right w3-padding w3-green w3-round" ng-bind="option.votes"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
