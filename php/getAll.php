@@ -12,6 +12,7 @@
             public $title;
             public $options;
             public $id;
+            public $date;
         };
 
         $table = [];
@@ -20,6 +21,7 @@
             $tmp->title = $ankiet['title'];
             $tmp->options = json_decode($ankiet['options']);
             $tmp->id = $ankiet['id'];
+            $tmp->date = $ankiet['created'];
             array_push($table, $tmp);
         }
 

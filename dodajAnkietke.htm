@@ -22,13 +22,36 @@
                 <h3 ng-bind="notification.title"></h3>
                 <br>
             </div>
-
-            <h3>DODAWANIE ANKIETY: </h3>
+            <div class="w3-row">
+                <h3 class="w3-left">DODAWANIE ANKIETY: </h3>
+                <div class="w3-right w3-button w3-padding w3-round" ng-click="backMAX()">
+                    Powrót
+                </div>
+            </div>
             <label>Tytuł ankiety: <input type="text" ng-model="titleOfAnkieta" class="w3-input {{titleOfAnkietaStyle}}"></label>
             <br>
             <input ng-repeat="option in options" class="w3-input w3-round-large {{option.style}}"  placeholder="{{option.placeholder}}" ng-model="option.title" ng-readonly="block">
 
             <button class="w3-button w3-green w3-large w3-hover-shadow" ng-click="addOption()">Dodaj opcje: </button>
+
+            <hr>
+            <div class="w3-container w3-border w3-border-white w3-round-large w3-padding">
+                <h3 class="w3-left">DODATKOWE OPCJE</h3> <img src="{{arrow}}" class="w3-right w3-button w3-padding-small w3-white w3-round-large" alt="" ng-click="openMore()">
+                <div ng-show="more" class="w3-container" style="width: 100%;">
+                    <label>
+                        <h3>Ankieta wygasa: </h3>
+                        <input type="date" ng-model="moreOptions.expires" class="w3-input w3-round">
+                    </label>
+                    <label>
+                        <h3>Hasło do edycji/zamknięcia ankiety: </h3>
+                        <input type="number" ng-model="moreOptions.password" class="w3-input w3-round">
+                    </label>
+                    <label>
+                        <h3>Maksymalna liczba uczestników ankiety: </h3>
+                        <input type="number" ng-model="moreOptions.maxPeople" class="w3-input w3-round">
+                    </label>
+                </div>
+            </div>
 
             <br>
             <div class="w3-bar" style="width: 100%;">

@@ -20,10 +20,32 @@
             AD
         </div>
         <div ng-controller="main" ng-switch="joined" class="w3-col l8 s12 m10">
+            <div class="w3-modal" style="display: {{editing.turn}}">
+                <div class="w3-modal-content w3-round-large w3-padding-large w3-text-black">
+                    
+                    <img src="bower_components/icons/min/common/trash-fill1.svg" alt="" class="w3-right w3-button w3-round w3-padding w3-white" ng-click="editing.close()">
+
+                    <label>
+                        <h3>Podaj hasło:</h3> 
+                        <input type="password" ng-model="editing.password" class="w3-input w3-round">
+                        <button class="w3-button w3-round" ng-click="editing.checkPassword(editing.password)">Prześlij</button>
+                    </label>
+
+                    <div class="w3-container" ng-show="editing.secret">
+
+                    </div>
+
+                </div>
+            </div>
             <ul class="w3-ul w3-hoverable w3-bordered" ng-switch-when="false">
-                <h2 class="w3-center">
-                    ANKIETKI
-                </h2>
+                <div class="w3-row">
+                    <h2 class="w3-left">
+                        ANKIETKI by mrkamis
+                    </h2>
+                    <div class="w3-right w3-large w3-button w3-padding w3-round w3-hoverable w3-margin-top" ng-click="backMAX()">
+                        Powrót
+                    </div>
+                </div>
                 <hr>
                 <li ng-repeat="ankieta in ankiety track by $index" style="cursor: pointer;" ng-click="joinAnkiet(ankieta.id)" class="w3-round-large w3-border w3-hover-shadow">
                     <h3 ng-bind="ankieta.title" class="w3-left"></h3>
@@ -39,6 +61,9 @@
                 <div class="w3-right w3-button w3-padding w3-round" ng-click="back()">
                     Powrót!
                 </div>
+                <div class="w3-right w3-button w3-padding w3-round w3-red" ng-click="editing.edit()">
+                    Edytuj
+                </div>
                 <h3 ng-bind="currentAnkiet.title" class="w3-center w3-xxlarge"></h3>
                 <h4 class="w3-bar w3-red w3-padding w3-round" ng-show="currentAnkiet.blocked">Już głosowałeś!</h4>
                 <hr>
@@ -50,6 +75,20 @@
                     </li>
                 </ul>
 
+                <br><br>
+                
+                <div class="w3-padding w3-topbar">
+                    <h2>Podsumowanie ankiety: </h2>
+
+                    <ul class="w3-ul w3-border w3-round">
+                        <li class="w3-padding w3-row">
+                            <h3 class="w3-left">Całkowita liczba oddanych głosów: <span class="w3-padding w3-round-large w3-yellow w3-right w3-margin-left" ng-bind="currentAnkiet.count"></span></h3>
+                        </li>
+                        <li class="w3-padding w3-row">
+                            <h3 class="w3-left">Data rozpoczęcia ankiety: <span class="w3-padding w3-margin-left w3-round-large w3-yellow" ng-bind="currentAnkiet.date"></span></h3>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

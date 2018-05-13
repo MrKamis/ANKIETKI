@@ -3,10 +3,10 @@ let app = angular.module('my-ankietki', [])
         $scope.switchPage = page => {
             switch(page){
                 case 'add':
-                    $window.open('dodajAnkietke.htm', '_blank');
+                    $window.open('dodajAnkietke.htm', '_self');
                     break;
                 case 'join':
-                    $window.open('dolaczDoAnkietki.htm', '_blank');
+                    $window.open('dolaczDoAnkietki.htm', '_self');
                     break;
             }
             return true;
@@ -102,10 +102,27 @@ let appADD = angular.module('my-addAnkietki', [])
                 return false;
             };
         };
+        $scope.backMAX = () => {
+            $window.open('index.htm', '_self');
+        };
+        $scope.more = false;
+        $scope.arrow = 'bower_components/icons/min/common/down-arrow1.svg';
+        $scope.moreOptions = {
+
+        };
+        $scope.openMore = () => {
+            if($scope.more){
+                $scope.more = false;
+                $scope.arrow = 'bower_components/icons/min/common/down-arrow1.svg';
+            }else{
+                $scope.more = true;
+                $scope.arrow = 'bower_components/icons/min/common/up-arrow1.svg';
+            }
+        };
     }]);
 
 let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
-    .controller('main', ['$scope', '$http', '$route', '$cookies', '$location',  ($scope, $http, $route, $cookies, $location) => {
+    .controller('main', ['$scope', '$http', '$route', '$cookies', '$location', '$window',  ($scope, $http, $route, $cookies, $location, $window) => {
         $scope.ankiety = [];
         $scope.joined = false;
         $scope.colors = ['red', 'green', 'yellow', 'blue', 'black', 'white', 'gray', 'indigo', 'khaki'];
@@ -130,7 +147,7 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                                 tmp = parseInt(tmp[tmp.length - 1]);
                                 for(let x = 0; x < $scope.ankiety.length; x++){
                                     if($scope.ankiety[x].id == tmp){
-                                        $scope.currentAnkiet = $scope.ankiety[x];
+                                        $scope.joinAnkiet(tmp);
                                         $scope.joined = true;
                                         break;
                                     }
@@ -168,6 +185,13 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                     break;
                 }
             }
+
+            let suma = 0;
+            for(let x = 0; x < $scope.currentAnkiet.options.length; x++){
+                suma += $scope.currentAnkiet.options[x].votes;
+            }
+            
+            $scope.currentAnkiet.count = suma;
         };  
         $scope.vote = title => {
             for(let x = 0; x < $scope.blocked.length; x++){
@@ -196,6 +220,7 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                                     for(let x = 0; x < $scope.currentAnkiet.options; x++){
                                         if($scope.currentAnkiet.options[x].title == title){
                                             $scope.currentAnkiet.options[x].votes++;
+                                            $scope.currentAnkiet.count++;
                                             break;
                                         }
                                     }
@@ -228,5 +253,52 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
         $scope.back = () => {
             $scope.joined = false;
             $location.path('');
+        };
+        $scope.backMAX = () => {
+            $window.open('index.htm', '_self');
+        };
+        $scope.editing = {
+            turn: 'none',
+            edit: () => {
+                if($scope.editing.turn == 'none'){
+                    $scope.editing.turn = 'block';
+                }else{
+                    $scope.editing.turn = 'none';
+                }
+            },
+            secret: false,
+            close: () => {
+                $scope.editing.turn = false;
+            },
+            checkPassword: password => {
+                if(password == '' || !password){
+                    $scope.editing.turn = false;
+                    return false;
+                }else{
+                    $http({
+                        method: 'POST',
+                        url: 'php/checkPassword.php',
+                        data: $.param({
+                            password: password
+                        }),
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                        .then(response => {
+                            switch(response.data){
+                                case '0':
+                                    //COMPLETE
+                                    break;
+                                case '1':
+                                    //BAD PASSWORD
+                                    break;
+                                default:
+                                    console.log(response.data)
+                                    break;
+                            }
+                        });
+                }
+            }
         };
     }]);
