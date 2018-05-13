@@ -10,6 +10,8 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
     <script src="js/main.js"></script>
 </head>
 <body ng-app="my-joinAnkiet" class="w3-theme-d4">
@@ -17,13 +19,13 @@
         <div class="w3-col l2 s0 m1" style="opacity: 0;">
             AD
         </div>
-        <div ng-controller="main" ng-switch="joined">
+        <div ng-controller="main" ng-switch="joined" class="w3-col l8 s12 m10">
             <ul class="w3-ul w3-hoverable w3-bordered" ng-switch-when="false">
                 <h2 class="w3-center">
                     ANKIETKI
                 </h2>
                 <hr>
-                <li ng-repeat="ankieta in ankiety track by $index" style="cursor: pointer;" ng-click="joinAnkiet(ankieta.id)">
+                <li ng-repeat="ankieta in ankiety track by $index" style="cursor: pointer;" ng-click="joinAnkiet(ankieta.id)" class="w3-round-large w3-border w3-hover-shadow">
                     <h3 ng-bind="ankieta.title" class="w3-left"></h3>
                     <h3 class="w3-right w3-opacity">Kliknij, by dołączyć!</h3>
                     <div class="w3-row">
@@ -38,6 +40,7 @@
                     Powrót!
                 </div>
                 <h3 ng-bind="currentAnkiet.title" class="w3-center w3-xxlarge"></h3>
+                <h4 class="w3-bar w3-red w3-padding w3-round" ng-show="currentAnkiet.blocked">Już głosowałeś!</h4>
                 <hr>
 
                 <ul class="w3-ul w3-hoverable">
