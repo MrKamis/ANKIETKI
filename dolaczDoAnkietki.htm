@@ -23,16 +23,39 @@
             <div class="w3-modal" style="display: {{editing.turn}}">
                 <div class="w3-modal-content w3-round-large w3-padding-large w3-text-black">
                     
+                    <div class="w3-left w3-round w3-padding w3-green" ng-show="editing.completeEditing">
+                        Zauktualizowano ankiete!
+                    </div>
+
+                    <div class="w3-left w3-round w3-padding w3-red" ng-show="editing.deleteAnkiet">
+                        Usunięto ankiete!
+                    </div>
+                    
                     <img src="bower_components/icons/min/common/trash-fill1.svg" alt="" class="w3-right w3-button w3-round w3-padding w3-white" ng-click="editing.close()">
 
-                    <label>
+                    <label ng-hide="editing.moreEdit">
                         <h3>Podaj hasło:</h3> 
                         <input type="password" ng-model="editing.password" class="w3-input w3-round">
                         <button class="w3-button w3-round" ng-click="editing.checkPassword(editing.password)">Prześlij</button>
                     </label>
 
-                    <div class="w3-container" ng-show="editing.secret">
+                    <div class="w3-container w3-padding" ng-show="editing.moreEdit">
+                        <label>
+                            <h3>Edytowanie tytułu ankiety: </h3>
+                            <input type="text" class="w3-input" ng-model="editing.currentAnkiet.newTitle" placeholder="{{editing.currentAnkiet.title}}">
+                        </label>
+                        <hr>
+                        <h3>OPCJE:</h3>
+                        <label ng-repeat="option in editing.currentAnkiet.options">
+                            <input type="text" class="w3-input" placeholder="{{option.title}}" ng-model="option.newTitle">
+                        </label>
 
+                        <br>
+                        <button class="w3-button w3-green w3-round w3-padding" style="width: 100%;" ng-click="editing.save()">Zaakceptuj!</button>
+
+                        <br>
+
+                        <button class="w3-button w3-red w3-round w3-padding" style="width: 100%;" ng-click="editing.end()">Zakończ ankiete</button>
                     </div>
 
                 </div>

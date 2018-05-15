@@ -39,16 +39,8 @@
                 <h3 class="w3-left">DODATKOWE OPCJE</h3> <img src="{{arrow}}" class="w3-right w3-button w3-padding-small w3-white w3-round-large" alt="" ng-click="openMore()">
                 <div ng-show="more" class="w3-container" style="width: 100%;">
                     <label>
-                        <h3>Ankieta wygasa: </h3>
-                        <input type="date" ng-model="moreOptions.expires" class="w3-input w3-round">
-                    </label>
-                    <label>
                         <h3>Hasło do edycji/zamknięcia ankiety: </h3>
-                        <input type="number" ng-model="moreOptions.password" class="w3-input w3-round">
-                    </label>
-                    <label>
-                        <h3>Maksymalna liczba uczestników ankiety: </h3>
-                        <input type="number" ng-model="moreOptions.maxPeople" class="w3-input w3-round">
+                        <input type="password" ng-model="moreOptions.password" class="w3-input w3-round">
                     </label>
                 </div>
             </div>

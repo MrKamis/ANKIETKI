@@ -78,7 +78,8 @@ let appADD = angular.module('my-addAnkietki', [])
                     url: 'php/sendAnkiet.php',
                     data: $.param({
                         options: angular.toJson($scope.options),
-                        title: $scope.titleOfAnkieta
+                        title: $scope.titleOfAnkieta,
+                        password: $scope.moreOptions.password
                     }),
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -108,7 +109,7 @@ let appADD = angular.module('my-addAnkietki', [])
         $scope.more = false;
         $scope.arrow = 'bower_components/icons/min/common/down-arrow1.svg';
         $scope.moreOptions = {
-
+            password: false
         };
         $scope.openMore = () => {
             if($scope.more){
@@ -260,6 +261,8 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
         $scope.editing = {
             turn: 'none',
             edit: () => {
+                $scope.editing.completeEditing = false;
+                $scope.editing.deleteAnkiet = false;
                 if($scope.editing.turn == 'none'){
                     $scope.editing.turn = 'block';
                 }else{
@@ -279,7 +282,8 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                         method: 'POST',
                         url: 'php/checkPassword.php',
                         data: $.param({
-                            password: password
+                            password: password,
+                            id: $scope.currentAnkiet.id
                         }),
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
@@ -288,10 +292,10 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                         .then(response => {
                             switch(response.data){
                                 case '0':
-                                    //COMPLETE
+                                    $scope.editing.editThis();
                                     break;
                                 case '1':
-                                    //BAD PASSWORD
+                                    $scope.editing.close();
                                     break;
                                 default:
                                     console.log(response.data)
@@ -299,6 +303,66 @@ let appJOIN = angular.module('my-joinAnkiet', ['ngRoute', 'ngCookies'])
                             }
                         });
                 }
+            },
+            editThis: () => {
+                $scope.editing.moreEdit = true;
+                $scope.editing.currentAnkiet = $scope.currentAnkiet;
+            },
+            save: () => {
+                if(!$scope.editing.moreEdit){
+                    return false;
+                }
+                if(!$scope.editing.currentAnkiet.newTitle){
+                    $scope.editing.currentAnkiet.newTitle = '';
+                }
+                for(let x = 0; x < $scope.editing.currentAnkiet.options.length; x++){
+                    if(!$scope.editing.currentAnkiet.options[x].newTitle){
+                        $scope.editing.currentAnkiet.options[x].newTitle = '';
+                    }
+                }
+                $http({
+                    method: 'POST',
+                    url: 'php/editAnkiet.php',
+                    data: $.param({
+                        ankiet: angular.toJson($scope.editing.currentAnkiet)
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                    .then(response => {
+                        switch(response.data){
+                            case '0':
+                                $scope.editing.completeEditing = true;
+                                break;
+                            default:
+                                console.log(response.data)
+                                break;
+                        }
+                    });
+            },
+            end: () => {
+                if(!$scope.editing.moreEdit){
+                    return false;
+                }
+
+                $http({
+                    method: 'POST',
+                    url: 'php/deleteAnkiet.php',
+                    data: $.param({
+                        id: $scope.currentAnkiet.id
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                    .then(response => {
+                        switch(response.data){
+                            case '0':
+                                $scope.editing.deleteAnkiet = true;
+                                break;
+                        }
+                    });
             }
         };
     }]);

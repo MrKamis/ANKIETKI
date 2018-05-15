@@ -4,7 +4,9 @@
 
     try{
 
-        $db_query = $db_conn->prepare('INSERT INTO listOfAnkiet(title, options) VALUES(:title, :options)');
+        $db_query = $db_conn->prepare('INSERT INTO listOfAnkiet(title, options, password) VALUES(:title, :options, :password)');
+        $password = md5($_POST['password']);
+        $db_query->bindParam(':password', $password);
         $db_query->bindParam(':title', $_POST['title']);
         $options = json_decode($_POST['options']);
 
